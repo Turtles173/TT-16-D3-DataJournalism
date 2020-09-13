@@ -112,7 +112,7 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
   }
   else {
       xlabel = "Median Household Income: $";
-  };
+  }
 
   // var ylabel;
 
@@ -124,7 +124,7 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
   }
   else {
       ylabel = "Percentage of Smokers : ";
-  };
+  }
 
   var toolTip = d3.tip()
     .attr("class", "tooltip")
@@ -145,7 +145,7 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
     });
 
   return circlesGroup;
-};
+}
 
 // Retrieve data from the CSV file and execute everything below
 d3.csv("../assets/data/data.csv").then(function(healthcareData, err) {
@@ -164,8 +164,13 @@ d3.csv("../assets/data/data.csv").then(function(healthcareData, err) {
   // xLinearScale function above csv import
   var xLinearScale = xScale(healthcareData, chosenXAxis);
 
-  // xLinearScale function above csv import
+  // yLinearScale function above csv import
   var yLinearScale = yScale(healthcareData, chosenYAxis);
+
+  // Create x scale function
+  var xLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(healthcareData, d => d.poverty)])
+    .range([0, width]);
 
   // Create y scale function
   var yLinearScale = d3.scaleLinear()
